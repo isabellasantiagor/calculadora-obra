@@ -73,6 +73,7 @@ Exemplo:
 ```json
 {
   "alturaTijolo": 0.2,
+  "larguraTijolo": 0.1,
   "comprimentoTijolo": 0.3,
   "arestas": [
     { "largura": 3, "comprimento": 10 },
@@ -94,12 +95,3 @@ Resposta:
 * Valores devem ser positivos;
 * Lista de arestas não pode ser vazia.
 
-## Fórmulas utilizadas
-
-### Concreto:
-
-Volume = largura × altura × comprimento
-
-### Tijolos:
-
-Quantidade = área da parede / área do tijolo
