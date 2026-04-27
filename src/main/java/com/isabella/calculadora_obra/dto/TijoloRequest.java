@@ -16,6 +16,9 @@ public class TijoloRequest {
     private double alturaTijolo;
 
     @Positive
+    private double larguraTijolo;
+
+    @Positive
     private double comprimentoTijolo;
 
     public List<ArestaRequest> getArestas() {
@@ -40,5 +43,13 @@ public class TijoloRequest {
 
     public void setComprimentoTijolo(double comprimentoTijolo) {
         this.comprimentoTijolo = comprimentoTijolo;
+    }
+
+    public double getLarguraTijolo() {
+        return larguraTijolo;
+    }
+
+    public void setLarguraTijolo(double larguraTijolo) {
+        this.larguraTijolo = larguraTijolo;
     }
 }
