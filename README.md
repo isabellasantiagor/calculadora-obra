@@ -9,6 +9,8 @@ O sistema calcula:
 
 Além do cálculo, o sistema permite que o usuário **submeta uma solicitação de orçamento completa** através de uma tela web, informando os dados do cliente e as paredes da planta da casa. O orçamento gerado é **persistido no banco de dados** e pode ser **consultado posteriormente por número ou por nome do cliente**.
 
+![Tela de solicitação de orçamento](solicitar-orcamento.png)
+
 ## Tecnologias Utilizadas
 * Java 17
 * Spring Boot
@@ -121,4 +123,4 @@ A planta da casa é informada pelo usuário como uma **lista dinâmica de parede
 * **Tabela `paredes`**: armazena cada parede informada (largura e comprimento), relacionada ao orçamento correspondente (`orcamento_id`).
 
 ## Plano de Teste
-O plano de teste manual, com casos de teste executados e evidências (capturas de tela) dos fluxos de solicitação, cálculo, persistência e busca de orçamentos, foi entregue separadamente ao professor. Foram realizados quatro testes: Acesso ao formulário de novo orçamento, Cálculo e persistência de orçamento válido, Consulta de orçamento por número e consulta de orçamento por nome do cliente. Esses orçamentos foram feitos de forma manual e evidenciados com prints. 
+O plano de teste manual, com casos de teste executados e evidências (capturas de tela) dos fluxos de solicitação, cálculo, persistência e busca de orçamentos, foi entregue separadamente ao professor.
