@@ -123,4 +123,4 @@ A planta da casa é informada pelo usuário como uma **lista dinâmica de parede
 * **Tabela `paredes`**: armazena cada parede informada (largura e comprimento), relacionada ao orçamento correspondente (`orcamento_id`).
 
 ## Plano de Teste
-O plano de teste manual, com casos de teste executados e evidências (capturas de tela) dos fluxos de solicitação, cálculo, persistência e busca de orçamentos, foi entregue separadamente ao professor.
+O plano de teste manual, com casos de teste executados e evidências (capturas de tela) dos fluxos de solicitação, cálculo, persistência e busca de orçamentos, foi entregue separadamente ao professor. Os testes foram realizados localmente e foram testados: Acesso ao formulário de novo orçamento, Cálculo e persistência de orçamento válido, Consulta de orçamento por número e Consulta de orçamento por nome do cliente.
