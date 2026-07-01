@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Orçamento gerado</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+        .card { border:1px solid #ddd; border-radius:8px; padding:20px; background:#fff; }
+        .numero { font-size:13px; color:#888; }
+        .valor { font-size:22px; font-weight:bold; color:#2c7be5; }
+        table { width:100%; border-collapse:collapse; margin-top:16px; }
+        th, td { text-align:left; padding:6px; border-bottom:1px solid #eee; }
+        a { display:inline-block; margin-top:20px; color:#2c7be5; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <p class="numero">Orçamento nº <span th:text="${orcamento.numeroOrcamento}"></span></p>
+    <h1 th:text="${orcamento.nomeCliente}"></h1>
+    <p>Volume de concreto: <span class="valor" th:text="${#numbers.formatDecimal(orcamento.volumeConcreto, 1, 2)} + ' m³'"></span></p>
+    <p>Quantidade de tijolos: <span class="valor" th:text="${#numbers.formatDecimal(orcamento.quantidadeTijolos, 1, 0)} + ' unidades'"></span></p>
+
+    <table th:if="${orcamento.paredes != null and !orcamento.paredes.isEmpty()}">
+        <thead><tr><th>Parede</th><th>Largura (m)</th><th>Comprimento (m)</th></tr></thead>
+        <tbody>
+        <tr th:each="parede, iter : ${orcamento.paredes}">
+            <td th:text="${iter.count}"></td>
+            <td th:text="${parede.largura}"></td>
+            <td th:text="${parede.comprimento}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<a th:href="@{/orcamentos/novo}">&larr; Novo orçamento</a>
+&nbsp;|&nbsp;
+<a th:href="@{/orcamentos/buscar}">Buscar orçamentos</a>
+</body>
+</html>

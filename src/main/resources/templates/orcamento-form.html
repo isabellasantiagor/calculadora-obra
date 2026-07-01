@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Orçamento - Calculadora de Obra</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; padding: 0 20px; background:#f7f7f7; }
+        h1 { color:#2c3e50; }
+        fieldset { border:1px solid #ddd; border-radius:8px; padding:16px; margin-bottom:20px; background:#fff; }
+        legend { font-weight:bold; padding:0 6px; }
+        label { display:block; margin-top:10px; font-weight:600; font-size:14px; }
+        input[type=text], input[type=number] { width:100%; padding:8px; margin-top:4px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box; }
+        table { width:100%; border-collapse:collapse; margin-top:10px; }
+        th, td { text-align:left; padding:6px; }
+        .btn-primary { background:#2c7be5; color:#fff; border:none; padding:10px 18px; border-radius:4px; font-size:15px; cursor:pointer; }
+        .btn-secondary { background:#eee; border:1px solid #ccc; padding:6px 12px; border-radius:4px; cursor:pointer; }
+        .btn-remover { background:#e55c5c; color:#fff; border:none; padding:4px 10px; border-radius:4px; cursor:pointer; }
+        .erro { color:#c0392b; font-size:13px; margin-top:4px; }
+        .info { font-size:13px; color:#666; margin-top:-6px; margin-bottom:10px; }
+    </style>
+</head>
+<body>
+
+<h1>Solicitar Orçamento</h1>
+<p class="info">Informe os dados do cliente e as paredes da planta (uma linha por parede, com largura e comprimento).</p>
+
+<form th:action="@{/orcamentos}" th:object="${orcamentoRequest}" method="post">
+
+    <fieldset>
+        <legend>Dados do cliente</legend>
+        <label for="nomeCliente">Nome do cliente</label>
+        <input type="text" id="nomeCliente" th:field="*{nomeCliente}" placeholder="Ex: Maria Silva">
+        <div class="erro" th:if="${#fields.hasErrors('nomeCliente')}" th:errors="*{nomeCliente}"></div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Dimensões gerais</legend>
+        <label for="altura">Altura da parede (m)</label>
+        <input type="number" step="0.01" id="altura" th:field="*{altura}">
+
+        <label for="alturaTijolo">Altura do tijolo (m)</label>
+        <input type="number" step="0.001" id="alturaTijolo" th:field="*{alturaTijolo}">
+
+        <label for="larguraTijolo">Largura do tijolo (m)</label>
+        <input type="number" step="0.001" id="larguraTijolo" th:field="*{larguraTijolo}">
+
+        <label for="comprimentoTijolo">Comprimento do tijolo (m)</label>
+        <input type="number" step="0.001" id="comprimentoTijolo" th:field="*{comprimentoTijolo}">
+    </fieldset>
+
+    <fieldset>
+        <legend>Paredes da planta</legend>
+        <table>
+            <thead><tr><th>Largura (m)</th><th>Comprimento (m)</th><th></th></tr></thead>
+            <tbody id="corpo-paredes"></tbody>
+        </table>
+        <button type="button" class="btn-secondary" onclick="adicionarParede()">+ Adicionar parede</button>
+    </fieldset>
+
+    <button type="submit" class="btn-primary">Calcular orçamento</button>
+</form>
+
+<script>
+    function adicionarParede() {
+        const tbody = document.getElementById('corpo-paredes');
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td><input type="number" step="0.01" class="campo-largura" required></td>
+            <td><input type="number" step="0.01" class="campo-comprimento" required></td>
+            <td><button type="button" class="btn-remover" onclick="removerParede(this)">Remover</button></td>
+        `;
+        tbody.appendChild(tr);
+        reindexar();
+    }
+
+    function removerParede(botao) {
+        const linhas = document.querySelectorAll('#corpo-paredes tr');
+        if (linhas.length <= 1) {
+            alert('É necessário informar pelo menos uma parede.');
+            return;
+        }
+        botao.closest('tr').remove();
+        reindexar();
+    }
+
+    function reindexar() {
+        document.querySelectorAll('#corpo-paredes tr').forEach((linha, index) => {
+            linha.querySelector('.campo-largura').name = `arestas[${index}].largura`;
+            linha.querySelector('.campo-comprimento').name = `arestas[${index}].comprimento`;
+        });
+    }
+
+    adicionarParede();
+    adicionarParede();
+</script>
+
+</body>
+</html>

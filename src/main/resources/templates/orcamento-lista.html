@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados da busca</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width:600px; margin:40px auto; padding:0 20px; }
+        table { width:100%; border-collapse:collapse; }
+        th, td { text-align:left; padding:8px; border-bottom:1px solid #eee; }
+        a.btn { color:#2c7be5; }
+    </style>
+</head>
+<body>
+<h1>Orçamentos encontrados</h1>
+<table>
+    <thead><tr><th>Nº</th><th>Cliente</th><th>Concreto (m³)</th><th>Tijolos</th><th></th></tr></thead>
+    <tbody>
+    <tr th:each="o : ${resultados}">
+        <td th:text="${o.numeroOrcamento}"></td>
+        <td th:text="${o.nomeCliente}"></td>
+        <td th:text="${#numbers.formatDecimal(o.volumeConcreto, 1, 2)}"></td>
+        <td th:text="${#numbers.formatDecimal(o.quantidadeTijolos, 1, 0)}"></td>
+        <td><a class="btn" th:href="@{/orcamentos/buscar/numero(numero=${o.numeroOrcamento})}">Ver detalhes</a></td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<a th:href="@{/orcamentos/buscar}">&larr; Nova busca</a>
+</body>
+</html>
